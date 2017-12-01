@@ -1,4 +1,4 @@
-import Fetch from '../http';
+import Fetch from './http';
 
 export const fetchHospitalList=function(params){
   return Fetch.get('/hospital/partner',{params})

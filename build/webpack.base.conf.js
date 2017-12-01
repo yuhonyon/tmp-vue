@@ -45,12 +45,6 @@ module.exports = {
           {
               loader: 'vue-loader',
               options: vueLoaderConfig
-          },
-          {
-              loader: 'iview-loader',
-              options: {
-                  prefix: false
-              }
           }
         ]
       },
