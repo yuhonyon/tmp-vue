@@ -41,7 +41,7 @@ function render(config,src,json){
   fs.outputFile(resolve(src),info)
 }
 
-function style(config
+function style(config){
   let importStyle='scss';
   if(config.style.length===0){
     remove(resolve('src/style/main.less'))
@@ -106,6 +106,10 @@ function packageInfo(config){
   });
   info=JSON.stringify(JSON.parse(info),null, 2);
   fs.outputFile(resolve('package.json'),info)
+}
+
+function esLint(){
+  
 }
 
 function tmp(config){
