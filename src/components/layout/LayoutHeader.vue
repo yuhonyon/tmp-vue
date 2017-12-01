@@ -15,7 +15,7 @@ export default {
 .app-header{
   line-height: 50px;
   height: 50px;
-  background: #458ff9;
+  background: #749fc3;
   color: #fff;
 }
 </style>

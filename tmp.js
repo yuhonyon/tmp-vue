@@ -63,7 +63,7 @@ function style(config){
 function router(config){
   render(config,'src/App.vue')
   if(config.router){
-
+    remove(resolve('src/components/HeaderNav.vue'))
   }else{
     remove(resolve('src/router'))
     remove(resolve('src/components/layout'))

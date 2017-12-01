@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import lazyLoading from './lazyLoading'
-import Layout from '@/components/layout/App'
+import Layout from '@/components/layout/Layout'
 
 Vue.use(Router)
 
@@ -15,9 +15,14 @@ export default new Router({
       redirect: '/login',
       children: [
         {
-          name: '质控记录',
-          path: '/qcRecord',
-          component: lazyLoading('qcRecord', true)
+          name: '病人管理',
+          path: '/patientManage',
+          component: lazyLoading('patientManagement', true)
+        },
+        {
+          name: '医院管理',
+          path: '/hospitalManage',
+          component: lazyLoading('hospitalManagement', true)
         }
       ]
     }, {

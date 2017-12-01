@@ -18,16 +18,16 @@
 <%}else{%>
   <template>
     <div id="app">
-      <patient-management></patient-management>
+      <hospital-management></hospital-management>
     </div>
   </template>
 
   <script>
-  import PatientManagement from "@/views/patientManagement/index.vue"
+  import HospitalManagement from "@/views/hospitalManagement/index.vue"
   export default {
     name: 'app',
     components:{
-      PatientManagement
+      HospitalManagement
     }
   }
   </script>
