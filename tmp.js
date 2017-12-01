@@ -14,15 +14,16 @@ function copy(from,to){
   })
 }
 function remove(file){
-  return new Promise((resolve,reject)=>{
-    fs.remove(file,err=>{
-      if(err){
-        reject(err);
-        return
-      }
-      resolve(true)
-    })
-  })
+  // return new Promise((resolve,reject)=>{
+  //   fs.remove(file,err=>{
+  //     if(err){
+  //       reject(err);
+  //       return
+  //     }
+  //     resolve(true)
+  //   })
+  // })
+  fs.removeSync(file)
 }
 function resolve(dir){
   return path.resolve(__dirname, dir);
