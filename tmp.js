@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+const fs = require('fs-extra')
 const path = require('path')
 const ejs = require('ejs');
 const glob = require("glob")
@@ -13,7 +13,6 @@ function copy(from,to){
     })
   })
 }
-
 function remove(file){
   return new Promise((resolve,reject)=>{
     fs.remove(file,err=>{
@@ -25,12 +24,9 @@ function remove(file){
     })
   })
 }
-
 function resolve(dir){
   return path.resolve(__dirname, dir);
 }
-
-
 function render(config,src,json){
   let str = fs.readFileSync(resolve(src), 'utf8');
   let info=ejs.render(str, {
@@ -43,9 +39,8 @@ function render(config,src,json){
   }
   fs.outputFile(resolve(src),info)
 }
-
 function allRender(config){
-  glob("**/*.json", options, function (err, files) {
+  glob(resolve("./")+"/**/*.json", function (err, files) {
     if(err){
       return;
     }
@@ -53,7 +48,7 @@ function allRender(config){
       render(config,file,true)
     }
   })
-  glob("**/*.@(js|vue|eslintrc|babelrc|)", options, function (err, files) {
+  glob(resolve("./")+"/**/*.@(js|vue|eslintrc|babelrc|)", function (err, files) {
     if(err){
       return;
     }
@@ -62,8 +57,6 @@ function allRender(config){
     }
   })
 }
-
-
 function style(config){
   let importStyle='scss';
   if(config.style.length===0){
@@ -80,11 +73,9 @@ function style(config){
     importStyle='less';
   }
 }
-
 function router(config){
   //render(config,'src/App.vue')
   if(config.router){
-
   }else{
     remove(resolve('src/router'))
     remove(resolve('src/views/patientManagement'))
@@ -92,7 +83,6 @@ function router(config){
     remove(resolve('src/components/layout'))
   }
 }
-
 function vuex(config){
   if(config.vuex){
     remove(resolve('src/api'))
@@ -100,11 +90,9 @@ function vuex(config){
     remove(resolve('src/store'))
   }
 }
-
 function main(config){
   //render(config,'src/main.js')
 }
-
 function e2e(config){
   if(config.e2e){
   //render(config,'test/e2e/custom-assertions/elementCount.js')
@@ -115,7 +103,6 @@ function e2e(config){
     remove(resolve('test/e2e'))
   }
 }
-
 function unit(config){
   if(config.unit){
   //render(config,'test/unit/specs/HeaderNav.js')
@@ -132,16 +119,8 @@ function unit(config){
     remove(resolve('test/unit'))
   }
 }
-
 function packageInfo(config){
-  let str = fs.readFileSync(resolve('package2.json'), 'utf8');
-  let info=ejs.//render(str, {
-      config
-  });
-  info=JSON.stringify(JSON.parse(info),null, 2);
-  fs.outputFile(resolve('package.json'),info)
 }
-
 function esLint(config){
   if(config.lint){
     //render(config,'.eslintrc.js')
@@ -149,12 +128,10 @@ function esLint(config){
     remove(resolve('.eslintrc.js'))
   }
 }
-
 function tmp(config){
   config.vuex=config.vuex==='n'?false:true;
   config.router=config.router==='n'?false:true;
   config.e2e=config.e2e==='n'?false:true;
-
   style(config);
   packageInfo(config);
   router(config);
