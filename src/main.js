@@ -2,21 +2,25 @@ import './config'
 import Vue from 'vue'
 import App from './App'
 <%if(config.vuex){%>
-import router from './router'
-<%}%>
-<%if(config.router){%>
-import router from './router'
-import NProgress from 'nprogress'
-<%}%>
-import * as filters from './filters';
-import api from './store/api';
-
+import router from './vuex'
 import {
   mapGetters,
   mapActions,
   mapMutations,
   mapState
 } from 'vuex'
+import api from './store/api';
+<%}else{%>
+import api from './api';
+<%}%>
+<%if(config.router){%>
+import router from './router'
+import NProgress from 'nprogress'
+<%}%>
+import * as filters from './filters';
+
+
+
 
 import './styles/main.<%=config.style.includes("sass")?"scss":(config.style.includes("less")?"less":"css")%>';
 
@@ -39,8 +43,12 @@ window.fetchApi=api;
 
 export default  new Vue({
   el: '#app',
+
+
   <%=config.router?"router,":""%>
   <%=config.vuex?"store,":""%>
+
+  
   template: '<App/>',
   components: { App }
 })

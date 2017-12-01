@@ -37,6 +37,8 @@ function render(config,src,json){
   });
   if(json){
     info=JSON.stringify(JSON.parse(info),null, 2);
+  }else{
+    info=info.replace(/[\n\r]{2,10}/g,'\n');
   }
   fs.outputFile(resolve(src),info)
 }
@@ -59,6 +61,7 @@ function style(config){
 }
 
 function router(config){
+  render(config,'src/App.vue')
   if(config.router){
 
   }else{

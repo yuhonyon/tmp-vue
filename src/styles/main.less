@@ -1,0 +1,82 @@
+html,body{
+  overflow: hidden;
+}
+.app-wrapper {
+  padding-top: 50px;
+  padding-left: 180px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  z-index: 999;
+}
+
+.app-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 180px;
+  z-index: 1000;
+}
+
+.app-content {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  background: #e6eff6;
+  overflow: auto;
+  > div {
+    background: #fff;
+    padding: 15px;
+  }
+}
+
+.app-title {
+  overflow: hidden;
+  margin-bottom: 30px;
+
+  > div,
+  h1 {
+    margin-right: 10px;
+  }
+}
+
+.app-search {
+  overflow: hidden;
+  line-height: 36px;
+
+  .ivu-form-item {
+    margin-bottom: 0;
+  }
+}
+
+.ivu-form-inline .ivu-form-item {
+  margin-right: 0;
+}
+
+.ivu-form-inline .ivu-form-item+.ivu-form-item {
+  margin-left: 10px;
+}
+@media (max-width: 768px) {
+  .app-search,
+  .app-title {
+    > div,
+    h1 {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    button {
+      float: none;
+    }
+  }
+}

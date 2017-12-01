@@ -1,17 +1,22 @@
 {
-  "name": "pc",
+  "name": "<%=config.name%>",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "yufangyang <975057282@qq.com>",
-  "private": true,
+  "description": "<%=config.description%>",
+  "author": "<%=config.author%>",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
+    "build": "node build/build.js",
+    <%if(config.karma){%>
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
+    <%}%>
+    <%if(config.lint){%>
+    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
+    <%}%>
+    <%if(config.e2e){%>
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "build": "node build/build.js",
+    <%}%>
     "packinit": "packinit",
     "packrun": "packrun"
   },
@@ -19,8 +24,7 @@
     "nprogress": "^0.2.0",
     "axios": "^0.17.1",
     "iview": "^2.7.3",
-    "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6",
+
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
@@ -54,7 +58,7 @@
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
     "inject-loader": "^3.0.0",
-    "iview-loader": "^1.0.0",
+    <%if(config.style.includes('sass')){%>
     "karma": "^1.4.1",
     "karma-coverage": "^1.1.1",
     "karma-mocha": "^1.3.0",
@@ -65,7 +69,23 @@
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.2",
     "mocha": "^3.2.0",
+    <%}%>
+
+    <%if(config.e2e){%>
     "nightwatch": "^0.9.12",
+    <%}%>
+
+    <%if(config.style.includes('sass')){%>
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    <%}%>
+
+    <%if(config.style.includes('less')){%>
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    <%}%>
+
+
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
