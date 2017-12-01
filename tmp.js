@@ -49,7 +49,15 @@ function allRender(config){
       render(config,file,true)
     }
   })
-  glob(resolve("./")+"/**/*.@(js|vue|eslintrc|babelrc|)", function (err, files) {
+  glob(resolve("./")+"/**/*.@(js|vue|eslintrc|babelrc)", function (err, files) {
+    if(err){
+      return;
+    }
+    for(let file of files){
+      render(config,file)
+    }
+  })
+  glob(resolve("./")+"/**/.@(js|eslintrc|babelrc)", function (err, files) {
     if(err){
       return;
     }
@@ -75,7 +83,6 @@ function style(config){
   }
 }
 function router(config){
-  //render(config,'src/App.vue')
   if(config.router){
   }else{
     remove(resolve('src/router'))
@@ -92,26 +99,15 @@ function vuex(config){
   }
 }
 function main(config){
-  //render(config,'src/main.js')
 }
 function e2e(config){
   if(config.e2e){
-  //render(config,'test/e2e/custom-assertions/elementCount.js')
-  //render(config,'test/e2e/specs/test.js')
-  //render(config,'test/e2e/nightwatch.conf.js')
-  //render(config,'test/e2e/runner.js')
   }else{
     remove(resolve('test/e2e'))
   }
 }
 function unit(config){
   if(config.unit){
-  //render(config,'test/unit/specs/HeaderNav.js')
-  //render(config,'test/unit/.eslintrc')
-  //render(config,'test/unit/index.js')
-  //render(config,'test/unit/jest.conf.js')
-  //render(config,'test/unit/karmal.conf.js')
-  //render(config,'test/unit/setup.js')
   }else{
     if(!config.e2e){
       remove(resolve('test'))
@@ -124,7 +120,6 @@ function packageInfo(config){
 }
 function esLint(config){
   if(config.lint){
-    //render(config,'.eslintrc.js')
   }else{
     remove(resolve('.eslintrc.js'))
   }
@@ -142,5 +137,7 @@ function tmp(config){
   e2e(config);
   unit(config);
   allRender(config)
+
+  copy(resolve("./"),'./'+config.name)
 }
 module.exports=tmp
