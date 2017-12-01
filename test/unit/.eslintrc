@@ -1,9 +1,10 @@
 {
-  "env": { 
-    "mocha": true
+  "env": { <%if(config.unit==='krama'){%>
+    "mocha": true<%}%><%if(config.lint==='airbnb'){%>
+    "jest": true<%}%>
   },
-  "globals": { 
+  "globals": { <%if(config.unit==='krama'){%>
     "expect": true,
-    "sinon": true
+    "sinon": true<%}%>
   }
 }

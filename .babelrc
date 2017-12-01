@@ -8,8 +8,9 @@
   "plugins": ["transform-runtime"],
   "env": {
     "test": {
-      "presets": ["env", "stage-2"],
-      "plugins": ["istanbul"]
+      "presets": ["env", "stage-2"]<%if(config.unit==='karma'){%>,
+      "plugins": ["istanbul"]<%}%><%if(config.unit==='jest'){%>,
+      "plugins": ["transform-es2015-modules-commonjs", "dynamic-import-node"]<%}%>
     }
   }
 }

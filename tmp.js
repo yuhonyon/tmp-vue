@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path')
 const ejs = require('ejs');
+const glob = require("glob")
 function copy(from,to){
   return new Promise((resolve,reject)=>{
     fs.copy(from,to,err=>{
@@ -43,25 +44,45 @@ function render(config,src,json){
   fs.outputFile(resolve(src),info)
 }
 
+function allRender(config){
+  glob("**/*.json", options, function (err, files) {
+    if(err){
+      return;
+    }
+    for(let file of files){
+      render(config,file,true)
+    }
+  })
+  glob("**/*.@(js|vue|eslintrc|babelrc|)", options, function (err, files) {
+    if(err){
+      return;
+    }
+    for(let file of files){
+      render(config,file)
+    }
+  })
+}
+
+
 function style(config){
   let importStyle='scss';
   if(config.style.length===0){
-    remove(resolve('src/style/main.less'))
-    remove(resolve('src/style/main.scss'))
+    remove(resolve('src/styles/main.less'))
+    remove(resolve('src/styles/main.scss'))
     importStyle='css';
   }else if(config.style.includes('sass')){
-    remove(resolve('src/style/main.less'))
-    remove(resolve('src/style/main.css'))
+    remove(resolve('src/styles/main.less'))
+    remove(resolve('src/styles/main.css'))
     importStyle='scss';
   }else{
-    remove(resolve('src/style/main.css'))
-    remove(resolve('src/style/main.scss'))
+    remove(resolve('src/styles/main.css'))
+    remove(resolve('src/styles/main.scss'))
     importStyle='less';
   }
 }
 
 function router(config){
-  render(config,'src/App.vue')
+  //render(config,'src/App.vue')
   if(config.router){
 
   }else{
@@ -81,12 +102,15 @@ function vuex(config){
 }
 
 function main(config){
-  render(config,'src/main.js')
+  //render(config,'src/main.js')
 }
 
 function e2e(config){
   if(config.e2e){
-
+  //render(config,'test/e2e/custom-assertions/elementCount.js')
+  //render(config,'test/e2e/specs/test.js')
+  //render(config,'test/e2e/nightwatch.conf.js')
+  //render(config,'test/e2e/runner.js')
   }else{
     remove(resolve('test/e2e'))
   }
@@ -94,7 +118,12 @@ function e2e(config){
 
 function unit(config){
   if(config.unit){
-
+  //render(config,'test/unit/specs/HeaderNav.js')
+  //render(config,'test/unit/.eslintrc')
+  //render(config,'test/unit/index.js')
+  //render(config,'test/unit/jest.conf.js')
+  //render(config,'test/unit/karmal.conf.js')
+  //render(config,'test/unit/setup.js')
   }else{
     if(!config.e2e){
       remove(resolve('test'))
@@ -106,21 +135,26 @@ function unit(config){
 
 function packageInfo(config){
   let str = fs.readFileSync(resolve('package2.json'), 'utf8');
-  let info=ejs.render(str, {
+  let info=ejs.//render(str, {
       config
   });
   info=JSON.stringify(JSON.parse(info),null, 2);
   fs.outputFile(resolve('package.json'),info)
 }
 
-function esLint(){
-
+function esLint(config){
+  if(config.lint){
+    //render(config,'.eslintrc.js')
+  }else{
+    remove(resolve('.eslintrc.js'))
+  }
 }
 
 function tmp(config){
   config.vuex=config.vuex==='n'?false:true;
   config.router=config.router==='n'?false:true;
   config.e2e=config.e2e==='n'?false:true;
+
   style(config);
   packageInfo(config);
   router(config);
@@ -129,5 +163,6 @@ function tmp(config){
   esLint(config);
   e2e(config);
   unit(config);
+  allRender(config)
 }
 module.exports=tmp
