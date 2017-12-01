@@ -109,10 +109,13 @@ function packageInfo(config){
 }
 
 function esLint(){
-  
+
 }
 
 function tmp(config){
+  config.vuex=config.vuex==='n'?false:true;
+  config.router=config.router==='n'?false:true;
+  config.e2e=config.e2e==='n'?false:true;
   style(config);
   packageInfo(config);
   router(config);
