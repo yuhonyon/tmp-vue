@@ -138,6 +138,9 @@ function tmp(config){
   unit(config);
   allRender(config)
 
-  copy(resolve("./"),'./'+config.name)
+  copy(resolve("./"),'./'+config.name).then(()=>{
+    remove('./'+config.name+'/tmp.js')
+    remove('./'+config.name+'/tmpConfig.js')
+  })
 }
 module.exports=tmp
